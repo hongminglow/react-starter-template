@@ -3,9 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { FormInput, FormButton } from '@/components/base'
 import { useAuthStore } from '@/stores/auth-store'
 import { loginSchema, type LoginFormData } from '@/lib/validations'
 
@@ -15,9 +13,9 @@ export function LoginPage() {
   const [error, setError] = useState('')
 
   const {
-    register,
+    control,
     handleSubmit,
-    formState: { errors, isSubmitting }
+    formState: { isSubmitting }
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -56,33 +54,22 @@ export function LoginPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
-              <Input
-                id="username"
-                type="text"
-                placeholder="Enter your username"
-                {...register('username')}
-                aria-invalid={errors.username ? 'true' : 'false'}
-              />
-              {errors.username && (
-                <p className="text-sm text-destructive">{errors.username.message}</p>
-              )}
-            </div>
+            <FormInput
+              name="username"
+              control={control}
+              label="Username"
+              placeholder="Enter your username"
+              description="Use 'demo' for demonstration"
+            />
 
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                {...register('password')}
-                aria-invalid={errors.password ? 'true' : 'false'}
-              />
-              {errors.password && (
-                <p className="text-sm text-destructive">{errors.password.message}</p>
-              )}
-            </div>
+            <FormInput
+              name="password"
+              control={control}
+              type="password"
+              label="Password"
+              placeholder="Enter your password"
+              description="Use 'password' for demonstration"
+            />
 
             {error && (
               <div className="p-3 text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-md">
@@ -90,13 +77,15 @@ export function LoginPage() {
               </div>
             )}
 
-            <Button 
-              type="submit" 
-              className="w-full" 
-              disabled={isSubmitting}
+            <FormButton 
+              type="submit"
+              control={control}
+              isSubmitting={isSubmitting}
+              loadingText="Signing in..."
+              className="w-full"
             >
-              {isSubmitting ? 'Signing in...' : 'Sign in'}
-            </Button>
+              Sign in
+            </FormButton>
           </form>
 
           <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md">

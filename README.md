@@ -38,6 +38,7 @@ The template includes a complete authentication flow showcase:
 
 ### 🔐 Login Page
 - Form validation with React Hook Form + Zod
+- **Enhanced form components** with automatic integration
 - Hardcoded demo credentials: `demo` / `password`
 - Persistent authentication state with Zustand
 - Beautiful UI with ShadCN components
@@ -47,6 +48,13 @@ The template includes a complete authentication flow showcase:
 - Loading states and error handling
 - Responsive grid layout
 - Real-time data fetching and caching
+- **Navigation to form examples page**
+
+### 📝 Form Components Showcase (NEW!)
+- Complete demonstration of all form components
+- FormInput, FormButton, FormSelect, FormTextarea, FormCheckbox
+- Automatic React Hook Form integration
+- Type-safe form handling with Zod validation
 
 ## 🛠️ Getting Started
 
@@ -84,12 +92,14 @@ The template includes a complete authentication flow showcase:
 ```
 src/
 ├── components/          # Reusable UI components
-│   ├── ui/             # ShadCN UI components
+│   ├── ui/             # Raw ShadCN UI components
+│   ├── base/           # Form-integrated components (NEW!)
 │   ├── PostCard.tsx    # Example component
 │   └── ProtectedRoute.tsx
 ├── pages/              # Page components
-│   ├── LoginPage.tsx   # Authentication page
-│   └── HomePage.tsx    # Main dashboard
+│   ├── LoginPage.tsx   # Authentication page (uses FormInput)
+│   ├── HomePage.tsx    # Main dashboard
+│   └── ExampleFormPage.tsx # Form components showcase (NEW!)
 ├── hooks/              # Custom React hooks
 │   └── usePosts.ts     # TanStack Query hook
 ├── stores/             # Zustand stores
@@ -119,6 +129,44 @@ src/
 - Configure base URLs in `src/lib/axios.ts`
 - Add new API hooks in `src/hooks/`
 - Define types in `src/types/api.ts`
+
+### Form Components (NEW!)
+The template now includes enhanced form components that integrate directly with React Hook Form:
+
+#### Using Base Components
+```typescript
+import { FormInput, FormButton } from '@/components/base'
+
+<FormInput
+  name="email"
+  control={control}
+  label="Email"
+  type="email"
+  placeholder="Enter email"
+/>
+
+<FormButton
+  type="submit"
+  isSubmitting={isSubmitting}
+  loadingText="Saving..."
+>
+  Save
+</FormButton>
+```
+
+#### Available Components
+- `FormInput` - Text inputs with validation
+- `FormButton` - Submit buttons with loading states  
+- `FormSelect` - Dropdown selects
+- `FormTextarea` - Multi-line text inputs
+- `FormCheckbox` - Checkbox inputs
+
+#### Benefits
+- ✅ Automatic React Hook Form integration
+- ✅ Built-in error handling and display
+- ✅ Accessibility attributes included
+- ✅ Consistent ShadCN styling
+- ✅ Full TypeScript support
 
 ## 📋 Available Scripts
 

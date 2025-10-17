@@ -3,7 +3,8 @@ import { usePosts } from '@/hooks/usePosts'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { PostCard } from '@/components/PostCard'
-import { LogOut, Loader2, RefreshCw } from 'lucide-react'
+import { LogOut, Loader2, RefreshCw, FileText } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export function HomePage() {
   const { user, logout } = useAuthStore()
@@ -25,6 +26,12 @@ export function HomePage() {
               </h1>
             </div>
             <div className="flex items-center space-x-4">
+              <Link to="/example-form">
+                <Button variant="outline" size="sm" className="flex items-center gap-2">
+                  <FileText className="h-4 w-4" />
+                  Form Examples
+                </Button>
+              </Link>
               <span className="text-sm text-gray-600">
                 Welcome, {user?.username}!
               </span>
@@ -54,7 +61,7 @@ export function HomePage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm mb-4">
               <div className="p-3 bg-blue-50 rounded-lg">
                 <div className="font-medium text-blue-900">State Management</div>
                 <div className="text-blue-700">Zustand with persist</div>
@@ -66,6 +73,16 @@ export function HomePage() {
               <div className="p-3 bg-purple-50 rounded-lg">
                 <div className="font-medium text-purple-900">UI Components</div>
                 <div className="text-purple-700">ShadCN/UI + Tailwind</div>
+              </div>
+            </div>
+            
+            <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <div className="font-medium text-yellow-900 mb-1">🎯 New: Form Components</div>
+              <div className="text-yellow-800 text-sm">
+                Check out our enhanced form components that integrate directly with React Hook Form! 
+                <Link to="/example-form" className="underline ml-1 font-medium">
+                  View Form Examples →
+                </Link>
               </div>
             </div>
           </CardContent>

@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { LoginPage } from '@/pages/LoginPage'
 import { HomePage } from '@/pages/HomePage'
+import { ExampleFormPage } from '@/pages/ExampleFormPage'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
 
 // Create a client
@@ -25,6 +26,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <HomePage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/example-form" 
+            element={
+              <ProtectedRoute>
+                <ExampleFormPage />
               </ProtectedRoute>
             } 
           />
