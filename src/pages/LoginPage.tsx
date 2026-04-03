@@ -79,7 +79,6 @@ export function LoginPage() {
 
             <FormButton 
               type="submit"
-              control={control}
               isSubmitting={isSubmitting}
               loadingText="Signing in..."
               className="w-full"

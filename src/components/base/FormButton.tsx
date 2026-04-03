@@ -1,27 +1,20 @@
 import * as React from "react"
-import type { Control, FieldValues } from "react-hook-form"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-export interface FormButtonProps<
-  TFieldValues extends FieldValues = FieldValues
-> extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  control?: Control<TFieldValues>
+export interface FormButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isSubmitting?: boolean
   loadingText?: string
 }
 
-export function FormButton<
-  TFieldValues extends FieldValues = FieldValues
->({
-  control,
+export function FormButton({
   isSubmitting = false,
   loadingText = "Loading...",
   children,
   disabled,
   className,
   ...props
-}: FormButtonProps<TFieldValues>) {
+}: FormButtonProps) {
   const isDisabled = disabled || isSubmitting
 
   return (

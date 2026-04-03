@@ -132,7 +132,6 @@ export function ExampleFormPage() {
               <div className="pt-4">
                 <FormButton
                   type="submit"
-                  control={control}
                   isSubmitting={isSubmitting}
                   loadingText="Creating account..."
                   className="w-full"
