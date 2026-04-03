@@ -1,5 +1,6 @@
-@import "./reset.css";
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Fira+Sans:wght@300;400;500;600;700&display=swap');
+@import './reset.css';
+@import 'tailwindcss';
 @plugin "@tailwindcss/forms";
 
 @theme inline {
@@ -22,6 +23,8 @@
   --color-popover-foreground: hsl(var(--popover-foreground));
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
@@ -45,58 +48,102 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 190 78% 97%;
+    --foreground: 197 71% 18%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 197 71% 18%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
-    --destructive: 0 84.2% 60.2%;
+    --popover-foreground: 197 71% 18%;
+    --primary: 191 92% 36%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 188 68% 92%;
+    --secondary-foreground: 197 71% 18%;
+    --muted: 188 50% 94%;
+    --muted-foreground: 197 24% 34%;
+    --accent: 187 62% 90%;
+    --accent-foreground: 197 71% 18%;
+    --destructive: 0 80% 55%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+    --border: 190 42% 84%;
+    --input: 190 42% 84%;
+    --ring: 191 92% 36%;
+    --sidebar: 188 68% 92%;
+    --sidebar-foreground: 197 71% 18%;
+    --radius: 0.9rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 84% 4.9%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --background: 199 64% 8%;
+    --foreground: 187 44% 94%;
+    --card: 197 58% 11%;
+    --card-foreground: 187 44% 94%;
+    --popover: 197 58% 11%;
+    --popover-foreground: 187 44% 94%;
+    --primary: 188 94% 58%;
+    --primary-foreground: 198 67% 10%;
+    --secondary: 198 44% 17%;
+    --secondary-foreground: 187 44% 94%;
+    --muted: 199 34% 16%;
+    --muted-foreground: 190 22% 72%;
+    --accent: 198 44% 18%;
+    --accent-foreground: 187 44% 94%;
+    --destructive: 0 73% 46%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 94.1%;
+    --border: 197 28% 24%;
+    --input: 197 28% 24%;
+    --ring: 188 94% 58%;
+    --sidebar: 197 58% 11%;
+    --sidebar-foreground: 187 44% 94%;
   }
 }
 
 @layer base {
+  html {
+    font-family: 'Fira Sans', system-ui, sans-serif;
+  }
+
   * {
     @apply border-border;
   }
+
+  *::selection {
+    @apply bg-primary/20 text-foreground;
+  }
+
   body {
     @apply bg-background text-foreground;
     margin: 0;
     min-height: 100vh;
+    background-image:
+      radial-gradient(circle at top, hsl(var(--primary) / 0.08), transparent 36%),
+      linear-gradient(180deg, hsl(var(--background)), hsl(var(--background)));
+    text-rendering: optimizeLegibility;
+  }
+
+  a {
+    @apply transition-colors;
+  }
+
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family: 'Fira Code', ui-monospace, monospace;
+  }
+
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }

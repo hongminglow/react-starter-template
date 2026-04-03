@@ -6,13 +6,13 @@ import type { AuthState, User } from '@/types/auth'
 // Hardcoded demo credentials
 const DEMO_CREDENTIALS = {
   username: 'demo',
-  password: 'password'
+  password: 'password',
 }
 
 const DEMO_USER: User = {
   id: '1',
   username: 'demo',
-  email: 'demo@example.com'
+  email: 'demo@example.com',
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -35,14 +35,14 @@ export const useAuthStore = create<AuthState>()(
           state.user = null
           state.isAuthenticated = false
         })
-      }
+      },
     })),
     {
       name: 'auth-storage',
       partialize: (state) => ({
         user: state.user,
-        isAuthenticated: state.isAuthenticated
-      })
+        isAuthenticated: state.isAuthenticated,
+      }),
     }
   )
 )

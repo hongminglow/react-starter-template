@@ -1,8 +1,12 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { Link } from 'react-router-dom'
+import { ArrowLeft, BadgeCheck } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { FormInput, FormButton, FormSelect, FormTextarea, FormCheckbox } from '@/components/base'
+import { AppShell } from '@/components/layout/AppShell'
+import { useAuthStore } from '@/stores/auth-store'
 
 const exampleSchema = z.object({
   firstName: z.string().min(1, 'First name is required'),
@@ -11,17 +15,18 @@ const exampleSchema = z.object({
   role: z.string().min(1, 'Please select a role'),
   bio: z.string().min(10, 'Bio must be at least 10 characters'),
   newsletter: z.boolean(),
-  terms: z.boolean().refine(val => val === true, 'You must accept the terms')
+  terms: z.boolean().refine((val) => val === true, 'You must accept the terms'),
 })
 
 type ExampleFormData = z.infer<typeof exampleSchema>
 
 export function ExampleFormPage() {
+  const { user, logout } = useAuthStore()
   const {
     control,
     handleSubmit,
     formState: { isSubmitting },
-    reset
+    reset,
   } = useForm<ExampleFormData>({
     resolver: zodResolver(exampleSchema),
     defaultValues: {
@@ -31,13 +36,13 @@ export function ExampleFormPage() {
       role: '',
       bio: '',
       newsletter: false,
-      terms: false
-    }
+      terms: false,
+    },
   })
 
   const onSubmit = async (data: ExampleFormData) => {
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    await new Promise((resolve) => setTimeout(resolve, 2000))
     console.log('Form submitted:', data)
     alert('Form submitted successfully! Check console for data.')
     reset()
@@ -47,13 +52,28 @@ export function ExampleFormPage() {
     { value: 'admin', label: 'Administrator' },
     { value: 'editor', label: 'Editor' },
     { value: 'viewer', label: 'Viewer' },
-    { value: 'contributor', label: 'Contributor' }
+    { value: 'contributor', label: 'Contributor' },
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto">
-        <Card>
+    <AppShell
+      pageTitle="Form component showcase"
+      pageDescription="Use this page as a reference for starter-friendly form patterns built with React Hook Form, Zod, and the shared UI primitives."
+      userName={user?.username}
+      onLogout={logout}
+    >
+      <div className="flex">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-background/75 px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to dashboard
+        </Link>
+      </div>
+
+      <div className="mx-auto w-full max-w-3xl">
+        <Card className="border-border/70 bg-card/85 shadow-xl shadow-primary/5 backdrop-blur">
           <CardHeader>
             <CardTitle>Form Components Showcase</CardTitle>
             <CardDescription>
@@ -71,7 +91,7 @@ export function ExampleFormPage() {
                   placeholder="John"
                   description="Enter your first name"
                 />
-                
+
                 <FormInput
                   name="lastName"
                   control={control}
@@ -141,22 +161,22 @@ export function ExampleFormPage() {
               </div>
             </form>
 
-            {/* Information Box */}
-            <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-              <h3 className="font-medium text-blue-900 mb-2">Form Components Features:</h3>
-              <ul className="text-sm text-blue-800 space-y-1">
-                <li>✅ Automatic React Hook Form integration</li>
-                <li>✅ Built-in error handling and display</li>
-                <li>✅ Accessibility attributes (ARIA labels, descriptions)</li>
-                <li>✅ Consistent styling with ShadCN design system</li>
-                <li>✅ TypeScript support with type safety</li>
-                <li>✅ Loading states for async operations</li>
-                <li>✅ Responsive design for mobile and desktop</li>
+            <div className="mt-8 rounded-2xl border border-primary/20 bg-primary/8 p-4">
+              <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-primary/80">
+                <BadgeCheck className="h-4 w-4" />
+                Included starter behaviors
+              </h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>Automatic React Hook Form integration</li>
+                <li>Built-in validation states and helper copy</li>
+                <li>Accessible labels and descriptive text hooks</li>
+                <li>Consistent theme-aware surfaces across light and dark mode</li>
+                <li>Responsive spacing tuned for mobile and desktop layouts</li>
               </ul>
             </div>
           </CardContent>
         </Card>
       </div>
-    </div>
+    </AppShell>
   )
 }

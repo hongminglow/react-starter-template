@@ -1,6 +1,6 @@
-import * as React from "react"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import * as React from 'react'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 export interface FormButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isSubmitting?: boolean
@@ -9,7 +9,7 @@ export interface FormButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
 
 export function FormButton({
   isSubmitting = false,
-  loadingText = "Loading...",
+  loadingText = 'Loading...',
   children,
   disabled,
   className,
@@ -18,11 +18,7 @@ export function FormButton({
   const isDisabled = disabled || isSubmitting
 
   return (
-    <Button
-      {...props}
-      disabled={isDisabled}
-      className={cn(className)}
-    >
+    <Button {...props} disabled={isDisabled} className={cn(className)}>
       {isSubmitting ? loadingText : children}
     </Button>
   )

@@ -7,19 +7,15 @@ interface PostCardProps {
 
 export function PostCard({ post }: PostCardProps) {
   return (
-    <Card className="h-full">
+    <Card className="h-full border-border/70 bg-card/85 shadow-lg shadow-primary/5 transition-colors">
       <CardHeader>
-        <CardTitle className="line-clamp-2 text-lg">
-          {post.title}
-        </CardTitle>
+        <CardTitle className="line-clamp-2 text-lg">{post.title}</CardTitle>
         <CardDescription>
           Post #{post.id} • User {post.userId}
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-muted-foreground line-clamp-3">
-          {post.body}
-        </p>
+        <p className="text-sm text-muted-foreground line-clamp-3">{post.body}</p>
       </CardContent>
     </Card>
   )
